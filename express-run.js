@@ -1,16 +1,11 @@
+const express = require('express');
+const path = require('path');
+const app = express();
 
-const path = require('path')
-const express = require('express')
-const myapp = express()
-const loguer = require('morgan')
+app.use(express.static(path.join(__dirname, 'build')));
 
-myapp.set('port', 80)
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
-myapp.use(loguer('Hoala'))
-
-myapp.use('/', express.static(path.join(__dirname, 'build')))
-
-
-myapp.listen(myapp.get('port'), () => {
-  console.log('Servidor corriendo por el puerto', myapp.get('port'))
-})
+app.listen(8001);
